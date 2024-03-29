@@ -1,5 +1,5 @@
 # gt_omics_analysis_toolkit
-Collection of custom executables for bioinformatics analysis
+A growing collection of custom executables for bioinformatics analysis
 
 # Shell Scripts:
 
