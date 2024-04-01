@@ -25,3 +25,5 @@ module load r
 Rscript Rscripts/plot_site_and_sample_missingness.R prefix <sample_prefix> <output_path> <sample_missingness_histogram_data.tsv> <snp_missingness_histogram_data.tsv>
 
 ```
+
+### R Shiny app for dynamically filtering VCF and plotting missingness (In Progress)
