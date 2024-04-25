@@ -40,11 +40,21 @@ PRX06_IBC_vcf="/variant_calling/IBC/PRX06_smk/variants.vcf.gz"
 PRX07_DR2_vcf="/DR2/PRX07_current/variants/variants.vcf.gz"
 PRX07_IBC_vcf="/variant_calling/IBC/PRX07/variants.vcf.gz"
 
+# Define array lists
+DR2_vcf_list=($PRX00_DR2_vcf $PRX02_DR2_vcf $PRX05_DR2_vcf $PRX06_DR2_vcf $PRX07_DR2_vcf)
+IBC_vcf_list=($PRX00_IBC_vcf $PRX02_IBC_vcf $PRX05_IBC_vcf $PRX06_IBC_vcf $PRX07_IBC_vcf)
+prefix_list=("PRX00" "PRX02" "PRX05" "PRX06" "PRX07")
+
+# Processing logic
+vcf1=${DR2_vcf_list[$SLURM_ARRAY_TASK_ID]}
+vcf2=${IBC_vcf_list[$SLURM_ARRAY_TASK_ID]}
+prefix=${prefix_list[$SLURM_ARRAY_TASK_ID]}
+
 # Define base directories
 output_directory="/variant_calling/merged_vcfs/DR2_IBC"
-temp_directory="${output_directory}/temp"
+temp_directory="${output_directory}/${prefix}_temp" # careful to make unqiue temp dir for each array task as they will not complete at same time and temp dir removal upon task completion will disrupt other tasks
 
-# create output directory if it doesn't exist:
+# Create output directory if it doesn't exist
 if [ ! -d "$output_directory" ]; then
     echo "Output directory does not exist, creating it..."
     mkdir -p "$output_directory"
@@ -53,19 +63,9 @@ fi
 # Create temporary directory if it doesn't exist
 mkdir -p $temp_directory
 
-# Define array lists
-DR2_vcf_list=($PRX00_DR2_vcf $PRX02_DR2_vcf $PRX05_DR2_vcf $PRX06_DR2_vcf $PRX07_DR2_vcf)
-IBC_vcf_list=($PRX00_IBC_vcf $PRX02_IBC_vcf $PRX05_IBC_vcf $PRX06_IBC_vcf $PRX07_IBC_vcf)
-prefix_list=("PRX00" "PRX02" "PRX05" "PRX06" "PRX07")
-
-# Define output VCF files
+# Define temp and final output files
 output_vcf_list=("PRX00_DR2_IBC_merged.vcf.gz" "PRX02_DR2_IBC_merged.vcf.gz" "PRX05_DR2_IBC_merged.vcf.gz" "PRX06_DR2_IBC_merged.vcf.gz" "PRX07_DR2_IBC_merged.vcf.gz")
 norm_output_vcf_list=("PRX00_DR2_IBC_merged_norm.vcf.gz" "PRX02_DR2_IBC_merged_norm.vcf.gz" "PRX05_DR2_IBC_merged_norm.vcf.gz" "PRX06_DR2_IBC_merged_norm.vcf.gz" "PRX07_DR2_IBC_merged_norm.vcf.gz")
-
-# Processing logic
-vcf1=${DR2_vcf_list[$SLURM_ARRAY_TASK_ID]}
-vcf2=${IBC_vcf_list[$SLURM_ARRAY_TASK_ID]}
-prefix=${prefix_list[$SLURM_ARRAY_TASK_ID]}
 
 sample_intersect_vcf1="$temp_directory/${prefix}_$(basename $vcf1 .vcf.gz)_DR2_sorted.vcf.gz"
 sample_intersect_vcf2="$temp_directory/${prefix}_$(basename $vcf2 .vcf.gz)_IBC_sorted.vcf.gz"
@@ -83,6 +83,7 @@ echo "Removing samples not in the intersection of the two VCFs: $vcf1 and $vcf2"
 # Extract sample names from each file
 bcftools query -l $vcf1 > $temp_directory/${prefix}_samples1.txt
 bcftools query -l $vcf2 > $temp_directory/${prefix}_samples2.txt
+
 
 # Find common samples
 grep -Fx -f $temp_directory/${prefix}_samples1.txt $temp_directory/${prefix}_samples2.txt > $temp_directory/${prefix}_common_samples.txt
