@@ -25,23 +25,23 @@ module load bcftools
 module load tabix
 
 # Define VCF files to merge. Merging two probe set vcfs for each collection year.
-PRX00_DR2_vcf="/nfs/jbailey5/baileyweb/mconrad2/Analysis/PRISMR/DR2/PRX00_current/variants/variants.vcf.gz"
-PRX00_IBC_vcf="/nfs/jbailey5/baileyweb/gtollefs/uganda_k13_selection/variant_calling/IBC/PRX00_smk/variants.vcf.gz"
+PRX00_DR2_vcf="/DR2/PRX00_current/variants/variants.vcf.gz"
+PRX00_IBC_vcf="/variant_calling/IBC/PRX00_smk/variants.vcf.gz"
 
-PRX02_DR2_vcf="/nfs/jbailey5/baileyweb/mconrad2/Analysis/PRISMR/DR2/PRX02_current/variants/variants.vcf.gz"
-PRX02_IBC_vcf="/nfs/jbailey5/baileyweb/gtollefs/uganda_k13_selection/variant_calling/IBC/PRX02_smk/variants.vcf.gz"
+PRX02_DR2_vcf="/DR2/PRX02_current/variants/variants.vcf.gz"
+PRX02_IBC_vcf="/variant_calling/IBC/PRX02_smk/variants.vcf.gz"
 
-PRX05_DR2_vcf="/nfs/jbailey5/baileyweb/mconrad2/Analysis/PRISMR/DR2/PRX05_current/variants/variants.vcf.gz"
-PRX05_IBC_vcf="/nfs/jbailey5/baileyweb/gtollefs/uganda_k13_selection/variant_calling/IBC/PRX05/variants.vcf.gz"
+PRX05_DR2_vcf="/DR2/PRX05_current/variants/variants.vcf.gz"
+PRX05_IBC_vcf="/variant_calling/IBC/PRX05/variants.vcf.gz"
 
-PRX06_DR2_vcf="/nfs/jbailey5/baileyweb/mconrad2/Analysis/PRISMR/DR2/PRX06_current/variants/variants.vcf.gz"
-PRX06_IBC_vcf="/nfs/jbailey5/baileyweb/gtollefs/uganda_k13_selection/variant_calling/IBC/PRX06_smk/variants.vcf.gz"
+PRX06_DR2_vcf="/DR2/PRX06_current/variants/variants.vcf.gz"
+PRX06_IBC_vcf="/variant_calling/IBC/PRX06_smk/variants.vcf.gz"
 
-PRX07_DR2_vcf="/nfs/jbailey5/baileyweb/mconrad2/Analysis/PRISMR/DR2/PRX07_current/variants/variants.vcf.gz"
-PRX07_IBC_vcf="/nfs/jbailey5/baileyweb/gtollefs/uganda_k13_selection/variant_calling/IBC/PRX07/variants.vcf.gz"
+PRX07_DR2_vcf="/DR2/PRX07_current/variants/variants.vcf.gz"
+PRX07_IBC_vcf="/variant_calling/IBC/PRX07/variants.vcf.gz"
 
 # Define base directories
-output_directory="/nfs/jbailey5/baileyweb/gtollefs/uganda_k13_selection/variant_calling/merged_vcfs/DR2_IBC"
+output_directory="/variant_calling/merged_vcfs/DR2_IBC"
 temp_directory="${output_directory}/temp"
 
 # create output directory if it doesn't exist:
